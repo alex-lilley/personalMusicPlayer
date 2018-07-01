@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>main page</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+</head>
+
+<body>
+    <div id="form">
+        <input type="text" placeholder="Enter web url here" id="urlInput" autocomplete="off" />
+        <button id="recordSong">Submit</button>
+    </div>
+    <div id="vidPlayer"></div>
+
+    <div id="songs"></div>
+    <button id="play">Play all</button>
+
+    <input type="text" placeholder="Enter playlist name" id="playListName" />
+    <button id="recPlaylistBut">Save playlist</button>
+
+    <div id="playlist"></div>
+
+    <script src="http://www.youtube.com/player_api"></script>
+    <script src="{{url_for('static', filename='mainbundle.js')}}"></script>
+</body>
+
+</html>
