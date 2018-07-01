@@ -6,6 +6,16 @@ function pollForYTLoaded() {
     if (YT.loaded != 1) {
         return setTimeout(pollForYTLoaded, 50);
     }
+    function playNextSong() {
+        currentSong += 1;
+        if (currentSong < songPlayList.length) {
+            player.loadVideoById(songPlayList[currentSong]);
+            player.playVideo();
+        }
+        else {
+            console.log("Playlist has finished");
+        }
+    }
 
     player = new YT.Player('vidPlayer', {
         width: '640',
@@ -18,28 +28,14 @@ function pollForYTLoaded() {
             },
 
             onStateChange: function (e) {
-                if (e.data === 0) {
+                if (e.data === YT.PlayerState.ENDED) {
                     console.log("started")
-                    currentSong += 1
-                    if (currentSong < songPlayList.length) {
-                        player.loadVideoById(songPlayList[currentSong])
-                        player.playVideo();
-                    }
-                    else {
-                        console.log("Playlist has finished")
-                    }
+                    playNextSong();
                 }
             },
 
             onError: function (e) {
-                currentSong += 1
-                if (currentSong < songPlayList.length) {
-                    player.loadVideoById(songPlayList[currentSong])
-                    player.playVideo();
-                }
-                else {
-                    console.log("Playlist has finished")
-                }
+                playNextSong();
             }
         }
     });
@@ -49,7 +45,7 @@ pollForYTLoaded();
 var songPlayList = []
 var currentSong = 0
 
-document.getElementById("play").addEventListener("click", function () {
+$("#play").on("click", function () {
     currentSong = 0;
     if (songPlayList[0]) {
         player.loadVideoById(songPlayList[0])
@@ -65,31 +61,18 @@ $('#recordSong').on('click', function (e) {
     recordSong(url);
 })
 
-document.getElementById("recPlaylistBut").addEventListener("click", function () {
-    var playlistSongs = []
-    var songs = Array.from(document.getElementById('playlist').childNodes)
-
-    for (song in songs) {
-        if (songs[song].classList) {
-            if (songs[song].classList.contains('song')) {
-                playlistSongs.push(songs[song].value)
-            }
-        }
-    }
-
+$("#recPlaylistBut").on("click", function () {
     $.ajax({
         data: {
-            songs: playlistSongs,
-            name: document.getElementById("playListName").value
+            songs: songPlayList,
+            name: $("#playListName").val()
         },
         type: "POST",
         url: "recordPlaylist"
     })
-        .done(function (data) {
-            console.log(data)
-        })
+        .then(refreshView())
+        .catch(err => console.error(err));
 })
-
 
 function refreshView() {
     return $.ajax({
@@ -103,10 +86,10 @@ function refreshView() {
 
             songs.empty();
             playlist.empty();
-    
+
             $.each(appData, function (key, appObject) {
                 if (appObject["type"] == "song") {
-                    
+
                     var author = appObject.author;
                     var vidId = appObject.vidID;
                     var title = appObject.title;
@@ -120,8 +103,7 @@ function refreshView() {
                         player.playVideo();
                     })
 
-                    var songAdd = $("<button/>");
-                    songAdd.text("Add to playlist");
+                    var songAdd = $("<button>Add to playlist</button>");
                     songAdd.on('click', function () {
                         songPlayList.push(vidId);
                         var listedSong = $(`<button class="song">${title}</button>`);
@@ -140,7 +122,7 @@ function refreshView() {
                 }
             });
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.error(err);
         });
 }

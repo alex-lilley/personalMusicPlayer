@@ -1,0 +1,23 @@
+{
+    "\u300cNightcore\u300d\u2192 GRRRLS (ft.AViVA)-\u10e6 NightcoreGalaxy \u10e6": {
+        "url": "https://www.youtube.com/embed/dfkgdAwQE88?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
+        "author": "\u10e6 NightcoreGalaxy \u10e6",
+        "title": "\u300cNightcore\u300d\u2192 GRRRLS (ft.AViVA)",
+        "vidID": "dfkgdAwQE88",
+        "type": "song"
+    },
+    "Nightcore - O.D.D. (Lyrics)-Chino": {
+        "url": "https://www.youtube.com/embed/9DdoIC7pR84?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
+        "author": "Chino",
+        "title": "Nightcore - O.D.D. (Lyrics)",
+        "vidID": "9DdoIC7pR84",
+        "type": "song"
+    },
+    "hi": {
+        "songs": [
+            "dfkgdAwQE88",
+            "9DdoIC7pR84"
+        ],
+        "type": "playlist"
+    }
+}

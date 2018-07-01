@@ -1,0 +1,17 @@
+Personal Music Player
+------------------------------------------------------------------------
+
+Personal Music Player is capable of storing your favourite YouTube songs
+and organizing them into playlists.
+
+This app is powered by Python 3.6/Flask with a jQuery/HTML client.
+
+To install, run ```pip install -r requirements.txt```
+
+To start the server, you must set the FLASK_APP environment variable to "home.py" 
+and then run ```flask run``` 
+It will be avaiable on localhost:5000
+
+To build the client, install NPM dependencies with `npm i` and then
+run `webpack`.
+

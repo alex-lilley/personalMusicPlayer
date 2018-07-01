@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 
-musicData = "./musicData.json"
+musicDataPath = "./musicData.json"
 # Prevent flask from caching js for developement
 @app.after_request
 def add_header(r):
@@ -19,14 +19,24 @@ def add_header(r):
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
 
+def getMusicData():
+    if not os.path.exists(musicDataPath):
+            with open(musicDataPath, "w") as  jsonFile:
+                json.dump({}, jsonFile, indent=4)
+   
+    with open(musicDataPath, "r") as jsonFile:
+        try:
+            return json.load(jsonFile)
+        except:
+            return {}      
+
 @app.route("/", methods=['GET'])
 def home():
     return render_template('main.html')
 
 @app.route("/appData", methods=['GET'])
-def setup():
-    with open(musicData, "r") as jsonFile:
-        return jsonFile.read()
+def setup():  
+    return json.dumps(getMusicData())
 
 @app.route("/recordSong", methods=['POST'])
 def recordSong():
@@ -45,19 +55,9 @@ def recordSong():
         songName = data["title"]+"-"+data['author_name']
         newSong = {songName:{"url": url, "author":data['author_name'], 'title':data['title'], "vidID": vidID, "type":"song"}}
 
-        if not os.path.exists(musicData):
-            with open(musicData, "w") as  jsonFile:
-                json.dump({}, jsonFile, indent=4)
-
-        songList = None
-        with open(musicData, "r") as jsonFile:
-            try:
-                songList = json.load(jsonFile)
-            except:
-                songList = {}
-            songList.update(newSong)
-
-        with open(musicData, "w+") as jsonFile:
+        songList = getMusicData()
+        songList.update(newSong)
+        with open(musicDataPath, "w+") as jsonFile:
             json.dump(songList, jsonFile, indent=4)
             print("added new song to playlist: " + songName, file=sys.stdout)
             return songList[songName]["vidID"]
@@ -69,9 +69,9 @@ def recordSong():
 def recordPlaylist():
     print(request.form, file=sys.stdout)
     playlist ={request.form.getlist('name')[0] :{ 'songs': request.form.getlist('songs[]'), 'type':'playlist'}}
-    with open(musicData, "r") as jsonFile:
-        collection = json.load(jsonFile)
-        collection.update(playlist)
-    with open(musicData, 'w') as jsonFile:
-        json.dump(collection, jsonFile, indent=4)
-    return "sent"
+
+    musicData = getMusicData()
+    musicData.update(playlist)
+    with open(musicDataPath, 'w') as jsonFile:
+        json.dump(musicData, jsonFile, indent=4)
+    return "", 200
