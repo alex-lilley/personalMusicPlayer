@@ -9,7 +9,10 @@
   "author": "Alex Lilley",
   "license": "ISC",
   "devDependencies": {
-    "webpack-cli": "^3.0.8",
-    "jquery":"^3.3.1"
+    "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "sweetalert2": "^7.25.0"
   }
 }

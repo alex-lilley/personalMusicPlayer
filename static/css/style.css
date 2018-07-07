@@ -1,4 +1,73 @@
-#hello{
-    font-size:30px;
-    color:red
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+    background-color: #131313;
+    color: rgba(255, 255, 255, 0.88);
+    font-family: Roboto, sans-serif;
+}
+
+.sub-text {
+    color: #888888;
+}
+
+.icon-button {
+    color: #888888;
+    margin-right: 4px;
+}
+
+.icon-button:hover{
+    color: rgba(255, 255, 255, 0.88);
+}
+
+main {
+    max-width: 1280px;
+    width: 100%;
+    margin: auto;
+    margin-top: 24px;
+    display: flex;
+}
+
+#vid-player {
+    margin-bottom: 8px;
+}
+
+#play-content {
+    margin: 8px;
+    flex: 1;
+}
+
+#playlist-hub {
+    margin: 8px;
+    max-width: 480px;
+    width: 480px;
+    flex: 1;
+}
+
+#playlist-controls {
+    margin-bottom: 8px;
+}
+
+#songlist-controls {
+    text-align: right;
+    margin-bottom: 16px;
+}
+
+.song {
+    margin-bottom: 16px;
+}
+
+.song-controls {
+    margin-bottom: 8px;
+}
+
+.song-title {
+    font-size: 1.5rem;
+}
+
+.song-author {
+    font-size: 1.1rem;
+}
+
+.song-controls {
+    float: right;
 }

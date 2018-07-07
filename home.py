@@ -53,14 +53,14 @@ def recordSong():
         vidID = url[-11:]
         url = url + "?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1"
         songName = data["title"]+"-"+data['author_name']
-        newSong = {songName:{"url": url, "author":data['author_name'], 'title':data['title'], "vidID": vidID, "type":"song"}}
+        newSong = {vidID:{"url": url, "author":data['author_name'], 'title':data['title'], "vidID": vidID, "type":"song"}}
 
         songList = getMusicData()
         songList.update(newSong)
         with open(musicDataPath, "w+") as jsonFile:
             json.dump(songList, jsonFile, indent=4)
             print("added new song to playlist: " + songName, file=sys.stdout)
-            return songList[songName]["vidID"]
+            return json.dumps(songList[vidID])
 
     else:
         return "url not included in request", 400

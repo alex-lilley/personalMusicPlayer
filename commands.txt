@@ -1,11 +1,11 @@
 #sets the env to be able to run app
 $env:FLASK_APP="home.py"
 
-#runs the app
-flask run
-
 #sets to develope mode
-$env:FLASK_ENV="developement"
+$env:FLASK_ENV="development"
 
 #actually sets debug mode
 $env:FLASK_DEBUG=1
+
+#runs the app
+flask run

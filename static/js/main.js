@@ -1,3 +1,5 @@
+import swal from 'sweetalert2'
+
 var player;
 function pollForYTLoaded() {
     // Before we can create the Player object, it needs to
@@ -17,9 +19,9 @@ function pollForYTLoaded() {
         }
     }
 
-    player = new YT.Player('vidPlayer', {
-        width: '640',
-        height: '390',
+    player = new YT.Player('vid-player', {
+        width: 860,
+        height: 860 * 9 / 16,
         videoID: 'wQysqHCAEi4',
         events: {
             onReady: function (e) {
@@ -56,16 +58,23 @@ $("#play").on("click", function () {
     }
 })
 
-$('#recordSong').on('click', function (e) {
-    var url = $('#urlInput').val();
-    recordSong(url);
+$('#record-song').on('click', function (e) {
+    swal({
+        input: 'url',
+        title: 'Add Song to Songlist',
+        inputPlaceholder: 'Enter the URL'
+    })
+        .then(res => {
+            recordSong(res.value)
+        });
+
 })
 
-$("#recPlaylistBut").on("click", function () {
+$("#record-playlist").on("click", function () {
     $.ajax({
         data: {
             songs: songPlayList,
-            name: $("#playListName").val()
+            name: $("#playlist-name").val()
         },
         type: "POST",
         url: "recordPlaylist"
@@ -83,9 +92,10 @@ function refreshView() {
         .then(function (appData) {
             var songs = $("#songs");
             var playlist = $("#playlist");
-
+            var playlists = $("#playlists");
             songs.empty();
             playlist.empty();
+            playlists.empty();
 
             $.each(appData, function (key, appObject) {
                 if (appObject["type"] == "song") {
@@ -94,16 +104,18 @@ function refreshView() {
                     var vidId = appObject.vidID;
                     var title = appObject.title;
 
-                    var song = $("<div/>");
-                    var songName = $(`<div>${author}: ${title}</div>`);
+                    var song = $(`<div class="song" />`);
+                    var songControls = $(`<div class="song-controls" />`);
+                    var songTitle = $(`<div class="song-title">${title}</div>`);
+                    var songAuthor = $(`<div class="song-author sub-text">${author}</div>`);
 
-                    var songPlay = $(`<button>Play</button>`);
+                    var songPlay = $(`<i class="fas fa-play-circle fa-2x icon-button"></i>`);
                     songPlay.on('click', function () {
                         player.loadVideoById(vidId);
                         player.playVideo();
                     })
 
-                    var songAdd = $("<button>Add to playlist</button>");
+                    var songAdd = $(`<i class="fas fa-plus-circle fa-2x icon-button"></i>"`);
                     songAdd.on('click', function () {
                         songPlayList.push(vidId);
                         var listedSong = $(`<button class="song">${title}</button>`);
@@ -112,13 +124,42 @@ function refreshView() {
                             player.loadVideoById(vidId);
                             player.playVideo();
                         })
-                        playlist.append(listedSong)
+                        playlist.append(listedSong);
                     });
 
-                    song.append(songName);
-                    song.append(songPlay);
-                    song.append(songAdd);
+                    songControls.append(songPlay);
+                    songControls.append(songAdd);
+                    song.append(songControls);
+                    song.append(songTitle);
+                    song.append(songAuthor);
                     songs.append(song);
+                }
+                //add playlist retrieval here
+                else if (appObject["type"] == "playlist") {
+                    var songsList = appObject.songs;
+                    var playlistName = `<div>${key}</div>`;
+                    var newPlaylist = $("<div/>");
+
+                    var playlistPlay = $("<button>Play all</button>");
+                    playlistPlay.on("click", function () {
+                        $.each(songsList, function (song) {
+                            var songData = appData[songsList[song]];
+                            var vidId = songData.vidID
+                            songPlayList.push(vidId);
+
+                            var listedSong = $(`<button class="song">${songData.title}</button>`);
+                            listedSong.on("click", function () {
+                                currentSong = songPlayList.indexOf(vidId);
+                                player.loadVideoById(vidId);
+                                player.playVideo();
+                            })
+                            playlist.append(listedSong);
+                        })
+                    })
+
+                    newPlaylist.append(playlistName)
+                    newPlaylist.append(playlistPlay)
+                    playlists.append(newPlaylist)
                 }
             });
         })
@@ -150,3 +191,9 @@ function recordSong(url) {
         })
         .then(refreshView)
 }
+
+$("#clear-playlist").on("click", function () {
+    songPlayList = [];
+    currentSong = 0;
+    $("#playlist").empty();
+})

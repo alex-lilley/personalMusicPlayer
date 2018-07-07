@@ -4,22 +4,46 @@
 <head>
     <title>main page</title>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
 </head>
 
 <body>
-    <div id="form">
-        <input type="text" placeholder="Enter web url here" id="urlInput" autocomplete="off" />
-        <button id="recordSong">Submit</button>
-    </div>
-    <div id="vidPlayer"></div>
 
-    <div id="songs"></div>
-    <button id="play">Play all</button>
+    <main>
+        <div id="play-content">
+            <div id="vid-player"></div>
+            <div id="songlist-controls">
+                <i 
+                    id="play" 
+                    class="fas fa-angle-double-right icon-button fa-2x"
+                    title="Play all songs"
+                >
+                </i>
 
-    <input type="text" placeholder="Enter playlist name" id="playListName" />
-    <button id="recPlaylistBut">Save playlist</button>
+                <i 
+                    id="record-song"
+                    class="fas fa-plus-square fa-2x icon-button"
+                    title="Add new song to your Songlist"    
+                >
+            </i>
+            </div>
 
-    <div id="playlist"></div>
+            <div id="songs"></div>
+
+            <div id="playlist"></div>
+        </div>
+
+        <div id="playlist-hub">
+            <div id="playlist-controls">
+                <input type="text" placeholder="Enter playlist name" id="playlist-name" />
+                <button id="record-paylist">Save playlist</button>
+                <button id="clear-playlist">Clear current playlist</button>
+            </div>
+
+            <div id="playlists"></div>
+        </div>
+    </main>
 
     <script src="http://www.youtube.com/player_api"></script>
     <script src="{{url_for('static', filename='mainbundle.js')}}"></script>
