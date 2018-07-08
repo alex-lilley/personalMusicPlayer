@@ -1,51 +1,69 @@
 {
-    "rggAHm71OQw": {
-        "url": "https://www.youtube.com/embed/rggAHm71OQw?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
-        "author": "TheNCimpact",
-        "title": "NIGHTCORE - Robots Can't Drink [HD] [Request]",
-        "vidID": "rggAHm71OQw",
-        "type": "song"
+    "song": {
+        "CEO8sZ1GZaA": {
+            "url": "https://www.youtube.com/embed/CEO8sZ1GZaA?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
+            "author": "NightcoreReality",
+            "title": "Nightcore - Dementia",
+            "vidID": "CEO8sZ1GZaA",
+            "type": "song"
+        },
+        "f8XLH8ZCPwI": {
+            "url": "https://www.youtube.com/embed/f8XLH8ZCPwI?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
+            "author": "NightcoreReality",
+            "title": "Nightcore - Jumpstart",
+            "vidID": "f8XLH8ZCPwI",
+            "type": "song"
+        },
+        "hckGbT6Z0H4": {
+            "url": "https://www.youtube.com/embed/hckGbT6Z0H4?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
+            "author": "Nightcore x Sutori",
+            "title": "\u266bNightcore\u266b Get Me Out [No Resolve]",
+            "vidID": "hckGbT6Z0H4",
+            "type": "song"
+        },
+        "yNVTHqCTIMw": {
+            "url": "https://www.youtube.com/embed/yNVTHqCTIMw?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
+            "author": "Muku",
+            "title": "Don't Threaten me with a Good Time - Nightcore",
+            "vidID": "yNVTHqCTIMw",
+            "type": "song"
+        },
+        "KF4KO5BFWTQ": {
+            "url": "https://www.youtube.com/embed/KF4KO5BFWTQ?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
+            "author": "tunes willy",
+            "title": "Nightcore - Sell Your Soul [HD]",
+            "vidID": "KF4KO5BFWTQ",
+            "type": "song"
+        },
+        "kiBVdNE1Wq8": {
+            "url": "https://www.youtube.com/embed/kiBVdNE1Wq8?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
+            "author": "Cherry \u8475",
+            "title": "Nightcore - N.M.E",
+            "vidID": "kiBVdNE1Wq8",
+            "type": "song"
+        },
+        "S4ca6zsNWMo": {
+            "url": "https://www.youtube.com/embed/S4ca6zsNWMo?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
+            "author": "NightcoreReality",
+            "title": "Nightcore - The Sway",
+            "vidID": "S4ca6zsNWMo",
+            "type": "song"
+        }
     },
-    "kL7hfgshm1Q": {
-        "url": "https://www.youtube.com/embed/kL7hfgshm1Q?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
-        "author": "Marimo",
-        "title": "\u300cNightcore\u300d\u2192 Stole The Show \u2717",
-        "vidID": "kL7hfgshm1Q",
-        "type": "song"
-    },
-    "hello": {
-        "songs": [
-            "rggAHm71OQw",
-            "kL7hfgshm1Q"
-        ],
-        "type": "playlist"
-    },
-    "rZUUcl8ANxg": {
-        "url": "https://www.youtube.com/embed/rZUUcl8ANxg?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
-        "author": "Nightcore x Sutori",
-        "title": "\u266bNightcore\u266b Bleed It Out [Linkin Park]",
-        "vidID": "rZUUcl8ANxg",
-        "type": "song"
-    },
-    "Bt16tYLI1VU": {
-        "url": "https://www.youtube.com/embed/Bt16tYLI1VU?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
-        "author": "NightcorexForever",
-        "title": "Nightcore - Not Fair",
-        "vidID": "Bt16tYLI1VU",
-        "type": "song"
-    },
-    "h3EMkb4WMu4": {
-        "url": "https://www.youtube.com/embed/h3EMkb4WMu4?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
-        "author": "Nightcore x Sutori",
-        "title": "\u266bNightcore\u266b Me Against The World [Simple Plan]",
-        "vidID": "h3EMkb4WMu4",
-        "type": "song"
-    },
-    "GWXAjR6juKE": {
-        "url": "https://www.youtube.com/embed/GWXAjR6juKE?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1",
-        "author": "NightcoreReality",
-        "title": "Nightcore - Show Me Love",
-        "vidID": "GWXAjR6juKE",
-        "type": "song"
+    "playlist": {
+        "hi": {
+            "songs": [
+                "CEO8sZ1GZaA"
+            ],
+            "type": "playlist"
+        },
+        "working songs": {
+            "songs": [
+                "hckGbT6Z0H4",
+                "kiBVdNE1Wq8",
+                "S4ca6zsNWMo"
+            ],
+            "type": "playlist"
+        }
     }
 }

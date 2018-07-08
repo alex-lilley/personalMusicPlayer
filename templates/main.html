@@ -14,19 +14,12 @@
         <div id="play-content">
             <div id="vid-player"></div>
             <div id="songlist-controls">
-                <i 
-                    id="play" 
-                    class="fas fa-angle-double-right icon-button fa-2x"
-                    title="Play all songs"
-                >
+                <input type="text" id="filter-songs" placeholder="Search...">
+                <i id="play" class="fas fa-angle-double-right icon-button fa-2x" title="Play all songs">
                 </i>
 
-                <i 
-                    id="record-song"
-                    class="fas fa-plus-square fa-2x icon-button"
-                    title="Add new song to your Songlist"    
-                >
-            </i>
+                <i id="record-song" class="fas fa-plus-square fa-2x icon-button" title="Add new song to your Songlist">
+                </i>
             </div>
 
             <div id="songs"></div>
@@ -35,13 +28,17 @@
         </div>
 
         <div id="playlist-hub">
-            <div id="playlist-controls">
-                <input type="text" placeholder="Enter playlist name" id="playlist-name" />
-                <button id="record-paylist">Save playlist</button>
-                <button id="clear-playlist">Clear current playlist</button>
+            <div>
+                <div id="playlist-hub-controls">
+                    <input type="text" placeholder="Enter playlist name" id="playlist-name" />
+                    <i class="fas fa-check-circle fa-2x icon-button" id="record-playlist" title="Save current playlist">
+                    </i><i class="fas fa-ban fa-2x icon-button" id="clear-playlist" title="Clear current playlist">
+                    </i>
+                </div>
             </div>
-
-            <div id="playlists"></div>
+            <div id="playlist-content">
+                <div id="playlists"></div>
+            </div>
         </div>
     </main>
 

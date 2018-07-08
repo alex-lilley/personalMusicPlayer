@@ -5,6 +5,7 @@ import os
 
 app = Flask(__name__)
 
+initializedData = {"song":{}, "playlist":{}}
 musicDataPath = "./musicData.json"
 # Prevent flask from caching js for developement
 @app.after_request
@@ -22,13 +23,13 @@ def add_header(r):
 def getMusicData():
     if not os.path.exists(musicDataPath):
             with open(musicDataPath, "w") as  jsonFile:
-                json.dump({}, jsonFile, indent=4)
+                json.dump(initializedData, jsonFile, indent=4)
    
     with open(musicDataPath, "r") as jsonFile:
         try:
             return json.load(jsonFile)
         except:
-            return {}      
+            return initializedData      
 
 @app.route("/", methods=['GET'])
 def home():
@@ -50,17 +51,20 @@ def recordSong():
         if not "embed/" in url:
             url = url.replace(".com/", ".com/embed/")
 
+        if "?" in url:
+            url = url.split("?")[0]
+
         vidID = url[-11:]
-        url = url + "?enablejsapi=1&amp;origin=http%3A%2F%2F127.0.0.1%3A5000&amp;widgetid=1;autoplay=1"
+
         songName = data["title"]+"-"+data['author_name']
         newSong = {vidID:{"url": url, "author":data['author_name'], 'title':data['title'], "vidID": vidID, "type":"song"}}
 
         songList = getMusicData()
-        songList.update(newSong)
+        songList["song"].update(newSong)
         with open(musicDataPath, "w+") as jsonFile:
             json.dump(songList, jsonFile, indent=4)
             print("added new song to playlist: " + songName, file=sys.stdout)
-            return json.dumps(songList[vidID])
+            return json.dumps(songList["song"][vidID])
 
     else:
         return "url not included in request", 400
@@ -68,10 +72,16 @@ def recordSong():
 @app.route("/recordPlaylist", methods=['POST'])
 def recordPlaylist():
     print(request.form, file=sys.stdout)
-    playlist ={request.form.getlist('name')[0] :{ 'songs': request.form.getlist('songs[]'), 'type':'playlist'}}
+    playlist_name = request.form.getlist('name')[0]
+    songs = request.form.getlist('songs[]')
 
-    musicData = getMusicData()
-    musicData.update(playlist)
-    with open(musicDataPath, 'w') as jsonFile:
-        json.dump(musicData, jsonFile, indent=4)
-    return "", 200
+    if (playlist_name is not None or playlist_name != "") and songs:
+        playlist = {playlist_name :{ 'songs': songs, 'type':'playlist'}}
+
+        musicData = getMusicData()
+        musicData["playlist"].update(playlist)
+        with open(musicDataPath, 'w') as jsonFile:
+            json.dump(musicData, jsonFile, indent=4)
+        return "", 200
+    else:
+        return "incorrect data format sent to server", 400

@@ -22,7 +22,6 @@ function pollForYTLoaded() {
     player = new YT.Player('vid-player', {
         width: 860,
         height: 860 * 9 / 16,
-        videoID: 'wQysqHCAEi4',
         events: {
             onReady: function (e) {
                 console.log("Player is ready");
@@ -46,6 +45,7 @@ pollForYTLoaded();
 
 var songPlayList = []
 var currentSong = 0
+var collectionData;
 
 $("#play").on("click", function () {
     currentSong = 0;
@@ -62,15 +62,31 @@ $('#record-song').on('click', function (e) {
     swal({
         input: 'url',
         title: 'Add Song to Songlist',
-        inputPlaceholder: 'Enter the URL'
+        inputPlaceholder: 'Enter the URL',
+        showCancelButton: true
     })
         .then(res => {
-            recordSong(res.value)
+            if (res.dismiss) {
+                console.log("modal dismissed")
+            }
+            else {
+                recordSong(res.value)
+            }
         });
 
 })
 
 $("#record-playlist").on("click", function () {
+    let playlistName = $("#playlist-name").val().trim();
+
+    if (playlistName == null || playlistName.length === 0) {
+        console.error("no name entered");
+        return;
+    }
+    if (songPlayList.length == 0) {
+        console.error("no songs in playlist");
+        return;
+    }
     $.ajax({
         data: {
             songs: songPlayList,
@@ -90,6 +106,7 @@ function refreshView() {
         url: "/appData"
     })
         .then(function (appData) {
+            collectionData = appData;
             var songs = $("#songs");
             var playlist = $("#playlist");
             var playlists = $("#playlists");
@@ -97,71 +114,75 @@ function refreshView() {
             playlist.empty();
             playlists.empty();
 
-            $.each(appData, function (key, appObject) {
-                if (appObject["type"] == "song") {
+            $.each(appData["song"], function (key, appObject) {
 
-                    var author = appObject.author;
-                    var vidId = appObject.vidID;
-                    var title = appObject.title;
+                var author = appObject.author;
+                var vidId = appObject.vidID;
+                var title = appObject.title;
 
-                    var song = $(`<div class="song" />`);
-                    var songControls = $(`<div class="song-controls" />`);
-                    var songTitle = $(`<div class="song-title">${title}</div>`);
-                    var songAuthor = $(`<div class="song-author sub-text">${author}</div>`);
+                var song = $(`<div class="song" />`);
+                var songControls = $(`<div class="song-controls" />`);
+                var songTitle = $(`<div class="song-title">${title}</div>`);
+                var songAuthor = $(`<div class="song-author sub-text">${author}</div>`);
 
-                    var songPlay = $(`<i class="fas fa-play-circle fa-2x icon-button"></i>`);
-                    songPlay.on('click', function () {
+                var songPlay = $(`<i class="fas fa-play-circle fa-2x icon-button" title="Play this Song"></i>`);
+                songPlay.on('click', function () {
+                    player.loadVideoById(vidId);
+                    player.playVideo();
+                })
+
+                var songAdd = $(`<i class="fas fa-plus-circle fa-2x icon-button" title="Add song to current playlist"></i>"`);
+                songAdd.on('click', function () {
+                    songPlayList.push(vidId);
+                    var listedSong = $(`<button class="song">${title}</button>`);
+                    listedSong.on("click", function () {
+                        currentSong = songPlayList.indexOf(vidId);
                         player.loadVideoById(vidId);
                         player.playVideo();
                     })
+                    playlist.append(listedSong);
+                });
 
-                    var songAdd = $(`<i class="fas fa-plus-circle fa-2x icon-button"></i>"`);
-                    songAdd.on('click', function () {
+                songControls.append(songPlay);
+                songControls.append(songAdd);
+                song.append(songControls);
+                song.append(songTitle);
+                song.append(songAuthor);
+                songs.append(song);
+            });
+
+            // Add playlist retrieval here
+            $.each(appData["playlist"], function (key, appObject) {
+                var songsList = appObject.songs;
+                var playlistName = `<div class="playlist-name">${key}</div>`;
+                var playlistSongCount = `<div class="playlist-song-count sub-text">Total songs: ${songsList.length}</div>`;
+                var newPlaylist = $(`<div class="playlist"/>`);
+                var playlistControls = $(`<div class="playlist-controls" />`);
+
+                var playlistPlay = $(`<i class="fas fa-play-circle fa-2x icon-button" title="Play this playlist"></i>`);
+                playlistPlay.on("click", function () {
+                    $.each(songsList, function (song) {
+                        var songData = appData["song"][songsList[song]];
+                        var vidId = songData.vidID
                         songPlayList.push(vidId);
-                        var listedSong = $(`<button class="song">${title}</button>`);
+
+                        var listedSong = $(`<button class="song">${songData.title}</button>`);
                         listedSong.on("click", function () {
                             currentSong = songPlayList.indexOf(vidId);
                             player.loadVideoById(vidId);
                             player.playVideo();
                         })
                         playlist.append(listedSong);
-                    });
-
-                    songControls.append(songPlay);
-                    songControls.append(songAdd);
-                    song.append(songControls);
-                    song.append(songTitle);
-                    song.append(songAuthor);
-                    songs.append(song);
-                }
-                //add playlist retrieval here
-                else if (appObject["type"] == "playlist") {
-                    var songsList = appObject.songs;
-                    var playlistName = `<div>${key}</div>`;
-                    var newPlaylist = $("<div/>");
-
-                    var playlistPlay = $("<button>Play all</button>");
-                    playlistPlay.on("click", function () {
-                        $.each(songsList, function (song) {
-                            var songData = appData[songsList[song]];
-                            var vidId = songData.vidID
-                            songPlayList.push(vidId);
-
-                            var listedSong = $(`<button class="song">${songData.title}</button>`);
-                            listedSong.on("click", function () {
-                                currentSong = songPlayList.indexOf(vidId);
-                                player.loadVideoById(vidId);
-                                player.playVideo();
-                            })
-                            playlist.append(listedSong);
-                        })
                     })
+                })
 
-                    newPlaylist.append(playlistName)
-                    newPlaylist.append(playlistPlay)
-                    playlists.append(newPlaylist)
-                }
-            });
+                playlistControls.append(playlistPlay)
+                newPlaylist.append(playlistControls)
+                newPlaylist.append(playlistName)
+                newPlaylist.append(playlistSongCount)
+                playlists.append(newPlaylist)
+            })
+
         })
         .catch(function (err) {
             console.error(err);
@@ -196,4 +217,18 @@ $("#clear-playlist").on("click", function () {
     songPlayList = [];
     currentSong = 0;
     $("#playlist").empty();
+})
+
+$('#filter-songs').on("keyup", function () {
+    var filterString = $('#filter-songs').val().toLowerCase();
+    $.each($(".song"), function (index, song) {
+        var songTitle = $(song).find(".song-title").text().toLowerCase();
+        var songAuthor = $(song).find(".song-author").text().toLowerCase();
+        if (songTitle.indexOf(filterString) === -1 && songAuthor.indexOf(filterString) === -1) {
+            song.style.display = "none";
+        }
+        else {
+            song.style.display = "block";
+        }
+    })
 })

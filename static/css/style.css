@@ -31,10 +31,6 @@ main {
     margin-bottom: 8px;
 }
 
-#play-content {
-    margin: 8px;
-    flex: 1;
-}
 
 #playlist-hub {
     margin: 8px;
@@ -43,13 +39,23 @@ main {
     flex: 1;
 }
 
-#playlist-controls {
-    margin-bottom: 8px;
+#playlist-hub-controls {
+    margin-bottom: 16px;
+    text-align: right;
+}
+
+.playlist {
+    margin-bottom: 16px;
 }
 
 #songlist-controls {
     text-align: right;
     margin-bottom: 16px;
+}
+
+#filter-songs {
+    margin-top: 6px;
+    float:left;
 }
 
 .song {
@@ -60,7 +66,7 @@ main {
     margin-bottom: 8px;
 }
 
-.song-title {
+.song-title, .playlist-name {
     font-size: 1.5rem;
 }
 
@@ -68,6 +74,10 @@ main {
     font-size: 1.1rem;
 }
 
-.song-controls {
+.song-controls, .playlist-controls {
     float: right;
+}
+
+.fa-2x {
+    vertical-align: middle;
 }
