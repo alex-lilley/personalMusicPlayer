@@ -13,11 +13,13 @@ body {
 .icon-button {
     color: #888888;
     margin-right: 4px;
+    margin-top: 8px;
 }
 
-.icon-button:hover{
+.icon-button:hover {
     color: rgba(255, 255, 255, 0.88);
 }
+
 
 main {
     max-width: 1280px;
@@ -33,7 +35,7 @@ main {
 
 
 #playlist-hub {
-    margin: 8px;
+    margin: 16px;
     max-width: 480px;
     width: 480px;
     flex: 1;
@@ -44,8 +46,10 @@ main {
     text-align: right;
 }
 
-.playlist {
+.playlist, .song {
     margin-bottom: 16px;
+    border: 2px solid #131313;
+    padding: 4px;
 }
 
 #songlist-controls {
@@ -53,13 +57,15 @@ main {
     margin-bottom: 16px;
 }
 
-#filter-songs {
+#filter-collection {
     margin-top: 6px;
     float:left;
 }
 
-.song {
-    margin-bottom: 16px;
+
+.playing, .playlist-content {
+    border:2px solid #888888;
+    left:2px;
 }
 
 .song-controls {
@@ -80,4 +86,8 @@ main {
 
 .fa-2x {
     vertical-align: middle;
+}
+
+.tab {
+    display:inline-block;
 }

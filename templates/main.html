@@ -14,31 +14,46 @@
         <div id="play-content">
             <div id="vid-player"></div>
             <div id="songlist-controls">
-                <input type="text" id="filter-songs" placeholder="Search...">
-                <i id="play" class="fas fa-angle-double-right icon-button fa-2x" title="Play all songs">
+                <div class=tab-list>
+                    <div class="tab active">
+                        <div class="tab-item active" id="show-playlists">Playlists</div>
+                    </div>
+                    <div class="tab">
+                        <div class="tab-item" id="show-collection">Collection</div>
+                    </div>
+                </div>
+                <input type="text" id="filter-collection" placeholder="Search...">
+                <i id="play-all" class="fas fa-angle-double-right icon-button fa-2x" title="Play all songs">
                 </i>
 
                 <i id="record-song" class="fas fa-plus-square fa-2x icon-button" title="Add new song to your Songlist">
                 </i>
             </div>
 
-            <div id="songs"></div>
+            <div id="collection"></div>
+            <div id="playlist-content">
+                <div id="playlists"></div>
+            </div>
 
-            <div id="playlist"></div>
+            
         </div>
 
         <div id="playlist-hub">
             <div>
                 <div id="playlist-hub-controls">
-                    <input type="text" placeholder="Enter playlist name" id="playlist-name" />
-                    <i class="fas fa-check-circle fa-2x icon-button" id="record-playlist" title="Save current playlist">
+                    <i class="fas fa-sign-in-alt fa-2x icon-button" id="start-playlist" title="Start this playlist">
+                    </i><i class="fas fa-redo fa-2x icon-button" id="loop-playlist" title="Loop playlist">
+                    </i><i class="fas fa-step-backward fa-2x icon-button" id="previous-song">
+                    </i><i class="fas fa-pause-circle fa-2x icon-button"id="pause-song" title="Pause">
+                    </i><i class="fas fa-play-circle fa-2x icon-button" id="play-song" title="Resume">
+                    </i><i class="fas fa-step-forward fa-2x icon-button" id="next-song">
+                    </i><i class="fas fa-check-circle fa-2x icon-button" id="record-playlist" title="Save current playlist">
                     </i><i class="fas fa-ban fa-2x icon-button" id="clear-playlist" title="Clear current playlist">
                     </i>
                 </div>
+                <div id="playlist"></div>
             </div>
-            <div id="playlist-content">
-                <div id="playlists"></div>
-            </div>
+            
         </div>
     </main>
 
